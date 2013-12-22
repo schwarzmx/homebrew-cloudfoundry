@@ -12,10 +12,6 @@ class Spiff < Formula
   depends_on "go" => :build
 
   def install
-    inreplace Dir["**/*.go"] do
-
-    end
-
     Dir.mktmpdir do |gopath|
       ENV["GOPATH"] = gopath
       src_path = File.join(gopath, "src", "github.com", "vito", "spiff")
