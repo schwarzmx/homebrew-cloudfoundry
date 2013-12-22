@@ -1,3 +1,3 @@
 ``` bash
-$ brew tab xoebus/cloudfoundry
+$ brew tap xoebus/cloudfoundry
 ```
