@@ -1,8 +1,5 @@
 require "formula"
 
-require "fileutils"
-require "tmpdir"
-
 class Spiff < Formula
   homepage "https://github.com/vito/spiff"
   url "https://github.com/vito/spiff.git", :tag => "v0.2"
@@ -10,19 +7,19 @@ class Spiff < Formula
   head "https://github.com/vito/spiff.git", :branch => "master"
 
   depends_on "go" => :build
+  depends_on "gocart" => :build
 
   def install
-    Dir.mktmpdir do |gopath|
-      ENV["GOPATH"] = gopath
-      src_path = File.join(gopath, "src", "github.com", "vito", "spiff")
-      FileUtils.mkdir_p(src_path)
-      system "cp", "-R", "#{buildpath}/", src_path
+    ENV["GOPATH"] = buildpath
 
-      system "go", "get", "-d", "github.com/vito/spiff"
-      system "go", "install", "github.com/vito/spiff"
+    mkdir_p "src/github.com/vito/spiff"
+    system "rsync", "-avR", "--exclude", "src", "./", "src/github.com/vito/spiff"
+    cd "src/github.com/vito/spiff"
+    system "gocart", "install"
+    system "go", "install", "github.com/vito/spiff"
 
-      bin.install File.join(gopath, "bin", "spiff")
-    end
+    cd buildpath
+    bin.install "bin/spiff"
   end
 
   test do
