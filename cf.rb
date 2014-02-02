@@ -1,9 +1,9 @@
 require 'formula'
 
-class Gcf < Formula
+class Cf < Formula
   homepage 'https://github.com/cloudfoundry/cli'
-  url 'https://github.com/cloudfoundry/cli.git', :tag => 'v6.0.0-beta2'
-  version '6.0.0-beta2'
+  url 'https://github.com/cloudfoundry/cli.git', :tag => 'v6.0.0'
+  version '6.0.0'
 
   head 'https://github.com/cloudfoundry/cli.git', :branch => 'master'
 
@@ -11,10 +11,10 @@ class Gcf < Formula
 
   def install
     system 'bin/build'
-    bin.install 'out/gcf'
+    bin.install 'out/cf'
   end
 
   test do
-    system "#{bin}/gcf"
+    system "#{bin}/cf"
   end
 end
