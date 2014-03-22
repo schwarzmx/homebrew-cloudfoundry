@@ -2,24 +2,22 @@ require "formula"
 
 class Spiff < Formula
   homepage "https://github.com/cloudfoundry-incubator/spiff"
-  url "https://github.com/cloudfoundry-incubator/spiff.git", :tag => "v0.3"
+  url "https://github.com/cloudfoundry-incubator/spiff.git", :tag => "v1.0"
 
   head "https://github.com/cloudfoundry-incubator/spiff.git", :branch => "master"
 
   depends_on "go" => :build
-  depends_on "gocart" => :build
+  depends_on "godep" => :build
 
   def install
     ENV["GOPATH"] = buildpath
 
     mkdir_p "src/github.com/cloudfoundry-incubator/spiff"
     system "rsync", "-avR", "--exclude", "src", "./", "src/github.com/cloudfoundry-incubator/spiff"
-    cd "src/github.com/cloudfoundry-incubator/spiff"
-    system "gocart", "install"
-    system "go", "install", "github.com/cloudfoundry-incubator/spiff"
 
-    cd buildpath
-    bin.install "bin/spiff"
+    system "godep", "go", "build", "-o", "out/spiff", "github.com/cloudfoundry-incubator/spiff"
+
+    bin.install "out/spiff"
   end
 
   test do
