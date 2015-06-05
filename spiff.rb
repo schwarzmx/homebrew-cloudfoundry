@@ -2,7 +2,7 @@ require "formula"
 
 class Spiff < Formula
   homepage "https://github.com/cloudfoundry-incubator/spiff"
-  url "https://github.com/cloudfoundry-incubator/spiff.git", :tag => "v1.0.3"
+  url "https://github.com/cloudfoundry-incubator/spiff.git", :tag => "v1.0.6"
 
   head "https://github.com/cloudfoundry-incubator/spiff.git", :branch => "master"
 
